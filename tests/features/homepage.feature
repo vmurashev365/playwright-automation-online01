@@ -6,11 +6,13 @@ Feature: Home Page Validation
   Background:
     Given I open the homepage
 
+  @banner
   Scenario: Collapse the main banner
     Then I should see a banner with text "Welcome to Restful Booker Platform"
     When I click the "Let me hack!" button on the homepage
     Then the banner should disappear
 
+  @rooms
   Scenario: Check room details and booking button
     When I scroll down to the "Rooms" section
     Then I should see the room type "single"
