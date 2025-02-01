@@ -6,10 +6,8 @@ const { ContactFormPage } = require('../pages/ContactFormPage.js');
 // Допустим, HomePage уже есть, и в нём есть метод скролла до Contact-секции,
 // но для простоты сделаем прямой скролл через this.page.locator(...)
 
-When('I scroll to the {string} section', async function (sectionName) {
-    if (sectionName === 'Contact') {
-        await this.page.locator('text=Contact').scrollIntoViewIfNeeded();
-    }
+When('I scroll to the Contact section', async function () {
+    await this.page.locator('.contact.row').scrollIntoViewIfNeeded();
     // Если будет нужно, можно аналогично делать для других секций
 });
 
@@ -20,7 +18,7 @@ When('I fill the {string} field with {string}', async function (fieldName, value
     await this.contactForm.fillField(fieldName, value);
 });
 
-When(/^I click the "([^"]+)" button on the contact form$/, async function (buttonName) {
+When('I click the {string} button on the contact form', async function (buttonName) {
     if (buttonName === 'Submit') {
         await this.contactForm.clickSubmit();
     }
@@ -28,9 +26,8 @@ When(/^I click the "([^"]+)" button on the contact form$/, async function (butto
 });
 
 Then('I should see a success message {string}', async function (messageText) {
-    // Проверяем, что successMessage виден
-    const isVisible = await this.contactForm.isSuccessMessageVisible();
-    expect(isVisible).toBe(true);
+    const actualText = await this.contactForm.getSuccessMessageText();
+    expect(actualText).toContain(messageText);
 });
 
 Then('I should see an error about invalid email', async function () {

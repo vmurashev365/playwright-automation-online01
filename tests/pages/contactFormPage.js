@@ -9,34 +9,64 @@ exports.ContactFormPage = class ContactFormPage {
         this.subjectField = page.locator('#subject');
         this.descriptionField = page.locator('#description');
         this.submitButton = page.locator('#submitContact');
-
+        
         // Пример локаторов для проверки сообщений
-        this.successMessage = page.locator('text=Thanks for getting in touch');
+        this.successMessage = page.locator('.contact.row h2');
         // Или, если есть класс ошибки, можно настроить:
-        this.errorMessage = page.locator('.invalid-feedback');
+        this.errorMessage = page.locator('.alert-danger');
     }
 
     // Заполнение полей контактной формы
-    async fillForm(name, email, phone, subject, description) {
-        await this.nameField.fill(name);
-        await this.emailField.fill(email);
-        await this.phoneField.fill(phone);
-        await this.subjectField.fill(subject);
-        await this.descriptionField.fill(description);
+    async fillField(fieldName, value) {
+        switch (fieldName) {
+            case 'Name':
+                await this.nameField.fill(value);
+                break;
+            case 'Email':
+                await this.emailField.fill(value);
+                break;
+            case 'Phone':
+                await this.phoneField.fill(value);
+                break;
+            case 'Subject':
+                await this.subjectField.fill(value);
+                break;
+            case 'Message':
+                await this.descriptionField.fill(value);
+                break;
+            default:
+                throw new Error(`Unknown field name: ${fieldName}`);
+        }
     }
 
     // Отправка формы
-    async submit() {
+    async clickSubmit() {
         await this.submitButton.click();
     }
 
     // Проверка успешного сообщения
+    async getSuccessMessageText() {
+        return await this.successMessage.textContent();
+    }
+
     async isSuccessMessageVisible() {
-        return this.successMessage.isVisible();
+        try {
+            await this.successMessage.waitFor({ state: 'visible', timeout: 2000 });  // Wait up to 2 seconds
+            return true;
+        } catch (error) {
+            return false;  // If timeout occurs, return false
+        }
     }
 
     // Проверка ошибки (например, при неправильном email)
-    async isErrorMessageVisible() {
-        return this.errorMessage.isVisible();
+    async isErrorFeedbackVisible() {
+        try {
+            await this.errorMessage.waitFor({ state: 'visible', timeout: 5000 });  // Wait up to 5 seconds
+            return true;
+        } catch (error) {
+            return false;  // If timeout occurs, return false
+        }
     }
+
 };
+
