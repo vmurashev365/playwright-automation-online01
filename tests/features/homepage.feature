@@ -14,7 +14,7 @@ Feature: Home Page Validation
 
   @rooms
   Scenario: Check room details and booking button
-    When I scroll down to the "Rooms" section
+    When I scroll down to the Rooms section
     Then I should see the room type "single"
     And I should see the amenities:
       | TV   |

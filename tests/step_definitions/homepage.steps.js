@@ -37,10 +37,8 @@ Then('the banner should disappear', async function () {
     expect(bannerStillVisible).toBe(false);
 });
 
-When('I scroll down to the {string} section', async function (sectionName) {
-    if (sectionName === 'Rooms') {
+When('I scroll down to the Rooms section', async function () {
         await this.homePage.scrollToRooms();
-    }
     // Если есть другие секции, 
     // мы могли бы сделать разные методы в POM или общий метод scrollToSection.
 });
