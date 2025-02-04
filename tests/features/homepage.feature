@@ -20,6 +20,7 @@ Feature: Home Page Validation
       | TV   |
       | WiFi |
       | Safe |
+      
     And I should see a button "Book this room"
     When I click the "Book this room" button on the homepage
     Then I should see a booking form or modal
