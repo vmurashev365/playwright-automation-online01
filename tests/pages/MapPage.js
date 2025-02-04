@@ -9,7 +9,14 @@ class MapPage {
     }
 
     async isMapVisible() {
-        return this.mapContainer.isVisible();
+        //return this.mapContainer.isVisible();
+
+        try {
+            await this.mapContainer.waitFor({ state: 'visible', timeout: 2000 });  // Wait up to 2 seconds
+            return true;
+        } catch (error) {
+            return false;  // If timeout occurs, return false
+        }
     }
 
     async checkConsoleErrors() {

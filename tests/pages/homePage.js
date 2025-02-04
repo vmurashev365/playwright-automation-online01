@@ -9,9 +9,9 @@ class HomePage {
         this.letMeHackButton = page.locator('button', { hasText: 'Let me hack!' });
 
         this.roomsHeader = page.locator('h2', { hasText: 'Rooms' });
-        this.roomType = page.locator('h3', { hasText: 'Single' });
-        this.roomAmenities = page.locator('.col-sm-7 ul li');
-        this.bookRoomButton = page.locator('button', { hasText: 'Book this room' });
+        this.roomType = page.getByRole('heading', { name: 'single', exact: true });
+        this.roomAmenities = page.getByRole('list').filter({ hasText: 'TVWiFiSafe' }).getByRole('listitem');
+        this.bookRoomButton = page.locator('button', { hasText: 'Book this room' }).first();
     }
 
     async goto() {
