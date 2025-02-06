@@ -13,7 +13,6 @@ AfterAll(async function () {
 });
 
 Before(async function () {
-    // Создаем новую страницу на каждый Scenario
     this.context = await browser.newContext();
     this.page = await this.context.newPage();
 });

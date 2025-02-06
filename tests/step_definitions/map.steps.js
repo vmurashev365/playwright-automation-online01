@@ -4,7 +4,6 @@ const { expect } = require('@playwright/test');
 const { MapPage } = require('../pages/MapPage');
 
 When('I scroll down to the Map section', async function () {
-        // Скроллим к блоку, где карта
         await this.page.locator('.map').scrollIntoViewIfNeeded();
 });
 
@@ -29,8 +28,6 @@ When('I zoom the map', async function () {
 });
 
 Then('the map should respond without crashing', async function () {
-    // Минимальная проверка: не упал браузер, не появилось фатальных ошибок
-    // Можно ещё раз проверить console errors
     const noErrors = await this.mapPage.checkConsoleErrors();
     expect(noErrors).toBe(true);
 });
