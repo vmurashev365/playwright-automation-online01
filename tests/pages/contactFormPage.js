@@ -2,7 +2,7 @@
 exports.ContactFormPage = class ContactFormPage {
     constructor(page) {
         this.page = page;
-        // Локаторы полей формы
+        // Locators of the form
         this.nameField = page.locator('#name');
         this.emailField = page.locator('#email');
         this.phoneField = page.locator('#phone');
@@ -10,13 +10,10 @@ exports.ContactFormPage = class ContactFormPage {
         this.descriptionField = page.locator('#description');
         this.submitButton = page.locator('#submitContact');
         
-        // Пример локаторов для проверки сообщений
         this.successMessage = page.locator('.contact.row h2');
-        // Или, если есть класс ошибки, можно настроить:
         this.errorMessage = page.locator('.alert-danger');
     }
 
-    // Заполнение полей контактной формы
     async fillField(fieldName, value) {
         switch (fieldName) {
             case 'Name':
@@ -39,12 +36,10 @@ exports.ContactFormPage = class ContactFormPage {
         }
     }
 
-    // Отправка формы
     async clickSubmit() {
         await this.submitButton.click();
     }
 
-    // Проверка успешного сообщения
     async getSuccessMessageText() {
         return await this.successMessage.textContent();
     }
@@ -58,7 +53,6 @@ exports.ContactFormPage = class ContactFormPage {
         }
     }
 
-    // Проверка ошибки (например, при неправильном email)
     async isErrorFeedbackVisible() {
         try {
             await this.errorMessage.waitFor({ state: 'visible', timeout: 5000 });  // Wait up to 5 seconds

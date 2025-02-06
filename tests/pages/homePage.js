@@ -4,7 +4,7 @@ const { expect } = require('@playwright/test');
 class HomePage {
     constructor(page) {
         this.page = page;
-        // Локаторы
+        // Locators
         this.banner = page.locator('.jumbotron');
         this.letMeHackButton = page.locator('button', { hasText: 'Let me hack!' });
 
