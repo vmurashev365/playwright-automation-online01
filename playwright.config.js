@@ -28,6 +28,10 @@ export default defineConfig({
   use: {
     baseURL: 'https://automationintesting.online/',
     headless: false,
+    launchOptions: {
+      args: ['--start-maximized'] // Для Chrome и Edge
+    },
+    viewport: null, // Отключаем встроенный viewport, чтобы использовать реальный размер окна
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
   },
